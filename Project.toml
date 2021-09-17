@@ -1,0 +1,7 @@
+name = "Invariants"
+uuid = "115d0255-0791-41d2-b533-80bc4cbe6c10"
+authors = ["lorenzoh <lorenz.ohly@gmail.com> and contributors"]
+version = "0.1.0"
+
+[compat]
+julia = "1"
