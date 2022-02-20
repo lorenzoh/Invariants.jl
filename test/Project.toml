@@ -1,2 +1,3 @@
 [deps]
+ReTest = "e0db7c4e-2690-44b9-bad6-7687da720f89"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"

@@ -1,6 +1,7 @@
 using Invariants
-using Test
+import Test
+using ReTest
 
-@testset "Invariants.jl" begin
-    # Write your tests here.
+Invariants.runtests()
+Test.@testset "Invariants.jl" begin
 end

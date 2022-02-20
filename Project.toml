@@ -3,5 +3,9 @@ uuid = "115d0255-0791-41d2-b533-80bc4cbe6c10"
 authors = ["lorenzoh <lorenz.ohly@gmail.com> and contributors"]
 version = "0.1.0"
 
+[deps]
+InlineTest = "bd334432-b1e7-49c7-a2dc-dd9149e4ebd6"
+Markdown = "d6f4376e-aef5-505a-96c1-9c027394607a"
+
 [compat]
 julia = "1"

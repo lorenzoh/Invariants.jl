@@ -1,3 +1,3 @@
 # Invariants
 
-[![Build Status](https://github.com/lorenzoh/Invariants.jl/workflows/CI/badge.svg)](https://github.com/lorenzoh/Invariants.jl/actions)
+Package for writing invariant checks with a focus on providing helpful error messages to users of a package.
