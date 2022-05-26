@@ -6,40 +6,34 @@
 Invariant that checks a boolean condition `fn : ctx -> Bool`.
 Error message is constructed from the context using
 `messagefn : ctx -> String`.
-
 """
 struct BooleanInvariant <: Invariant
     fn
-    name::String
-    messagefn
+    title::String
 end
 
-BooleanInvariant(fn; name = "BooleanInvariant", messagefn = _ -> "") =
-    BooleanInvariant(fn, name, messagefn)
+title(inv::BooleanInvariant) = inv.title
 
-name(inv::BooleanInvariant) = inv.name
+description(inv::BooleanInvariant, ctx) = "The function `$(inv.fn)($(ctx))` must return true"
 
 
 function checkinvariant(inv::BooleanInvariant, ctx)
-    return inv.fn(ctx) ? (true, nothing) : (false, nothing)
+    try
+        return inv.fn(ctx)
+    catch e
+        return e
+    end
+end
+
+function errormessage(inv::BooleanInvariant, ctx, resultctx::Bool)
+    @assert resultctx === false
+    return """The Boolean condtion was not met."""
 end
 
 
-function printerror(io::IO, inv::BooleanInvariant, ctx, errorctx)
-    return print(io, inv.messagefn(ctx))
-end
-
-
-@testset "BooleanInvariant" begin
-    inv = BooleanInvariant(iseven, "is_even", ctx -> "$ctx is not an even number!")
-    @test check(inv, 2)
-    @test !check(inv, 1)
-    @test_nowarn check_error(inv, 2)
-    @test_throws InvariantException check_error(inv, 1)
-    @test printerror(String, inv, 1, nothing) == "1 is not an even number!"
-end
 
 ##
+#=
 
 struct HasMethodInvariant <: Invariant
     fn
@@ -102,3 +96,4 @@ end
     _, errorctx = checkinvariant(inv, ctx)
     @test printerror(String, inv, ctx, errorctx) == "Expected function `sum` to have a method for argument types `(Int64, UnitRange{Int64})`. Resolve by defining the method."
 end
+=#

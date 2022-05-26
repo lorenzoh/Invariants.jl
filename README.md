@@ -1,3 +1,22 @@
 # Invariants
 
-Package for writing invariant checks with a focus on providing helpful error messages to users of a package.
+A Julia package for writing invariants for
+
+- providing helpful, detailed error messages to package users when they misuse the API
+- creating interface test suites (as described [here](https://invenia.github.io/blog/2020/11/06/interfacetesting/))
+
+Designing the package, I focused on:
+
+- reusability: invariants are easy to define and reuse, reducing boilerplate
+- composability: invariants can be composed to create more complex invariants
+- rich error messages: to be helpful, rich error messages should be easy to create
+
+## Example
+
+```julia
+using Invariants
+
+
+```
+
+

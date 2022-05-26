@@ -3,11 +3,17 @@
 
 
 """
-    check(invariant, ctx) -> true|false
+    check_bool(invariant, ctx) -> true|false
 
 Check whether an invariant holds in context `ctx`, returning a `Bool`.
 """
-check(invariant, ctx) = checkinvariant(invariant, ctx)[1]
+check_bool(invariant, input) = isnothing(satisfies(invariant, input))
+
+
+function check(invariant, input)
+    res = satisfies(invariant, input)
+    return CheckResult(invariant, res)
+end
 
 
 
@@ -18,16 +24,25 @@ Check an invariant and provide a detailed error message if it
 does not pass. If it passes, return `nothing`.
 Use in tests in combination with `@test_nowarn`.
 """
-function check_error(invariant, ctx)
-    passed, errorctx = checkinvariant(invariant, ctx)
-    passed && return
-    msg = errormessage(invariant, ctx, errorctx)
-    throw(InvariantException(invariant, msg))
+function check_throw(invariant, input)
+    res = satisfies(invariant, input)
+    isnothing(res) && return
+    throw(InvariantException(invariant, res))
 end
 
-function errormessage(inv::Invariant, ctx, errorctx)
-    io = IOBuffer()
-    ioctx = IOContext(io, :color => true)
-    printerror(ioctx, inv, ctx, errorctx)
-    return String(take!(io))
+
+struct CheckResult{I, R}
+    invariant::I
+    result::R
+end
+
+function Base.show(io::IO, checkres::CheckResult{<:I, Nothing}) where I
+    print(io, "\e[32m✔ Invariant satisfied:\e[0m ")
+    showtitle(io, checkres.invariant)
+end
+
+function Base.show(io::IO, checkres::CheckResult)
+    print(io, "\e[1m\e[31m⨯ Invariant not satisfied:\e[0m\e[1m ")
+    showtitle(io, checkres.invariant); print(io, "\e[22m\n\n")
+    errormessage(io, checkres.invariant, checkres.result)
 end
