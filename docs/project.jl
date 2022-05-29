@@ -2,8 +2,8 @@ using Pollen
 using Pkg
 
 # The main package you are documenting
-using
-m =
+using Invariants
+m = Invariants
 
 
 # Packages that will be indexed in the documentation. Add additional modules

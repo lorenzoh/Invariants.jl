@@ -14,9 +14,14 @@ Designing the package, I focused on:
 ## Example
 
 ```julia
-using Invariants
+using Invariants: check, invariant, md
 
+inv = invariant("Is negative") do n
+    n < 0 ? nothing : md("`n` is not negative!")
+end
 
+check(inv, 1)
+check(inv, -1)
 ```
 
 

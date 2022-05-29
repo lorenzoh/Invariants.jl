@@ -98,6 +98,47 @@ on the third argument:
 - `:all` (default): All invariants must be satisfied (see [`AllInvariant`](#))
 - `:any`: At least one invariant must be satisfied (see [`AnyInvariant`](#))
 satisfied. `
+
+## Examples
+
+Basic usage:
+
+{cell}
+```julia
+using Invariants
+
+inv = invariant("Is negative") do n
+    n < 0 ? nothing : Invariants.md("`n` is not negative!")
+end
+```
+
+Successful check:
+
+{cell}
+```julia
+check(inv, -1)
+```
+
+Failing check:
+
+{cell}
+```julia
+check(inv, 1)
+```
+
+Or just get a Bool:
+
+{cell}
+```julia
+check_bool(inv, -1), check_bool(inv, 1)
+```
+
+Throw an error when an invariant is not satisfied:
+
+{cell}
+```julia
+check_throw(inv, 1)
+```
 """
 invariant(fn, title::String; kwargs...) = Invariant(fn, title; kwargs...)
 

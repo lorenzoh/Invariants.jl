@@ -12,3 +12,8 @@ TextWrap = "b718987f-49a8-5099-9789-dcd902bef87d"
 
 [compat]
 julia = "1"
+
+
+[pollen]
+title = "Invariants.jl"
+url = "https://github.com/lorenzoh/Invariants.jl"

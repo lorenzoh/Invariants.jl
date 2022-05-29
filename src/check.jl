@@ -18,7 +18,7 @@ end
 
 
 """
-    check_error(invariant, ctx)
+    check_throw(invariant, input)
 
 Check an invariant and provide a detailed error message if it
 does not pass. If it passes, return `nothing`.
@@ -43,6 +43,6 @@ end
 
 function Base.show(io::IO, checkres::CheckResult)
     print(io, "\e[1m\e[31m⨯ Invariant not satisfied:\e[0m\e[1m ")
-    showtitle(io, checkres.invariant); print(io, "\e[22m\n\n")
+    showtitle(io, checkres.invariant); print(io, "\e[22m\n")
     errormessage(io, checkres.invariant, checkres.result)
 end

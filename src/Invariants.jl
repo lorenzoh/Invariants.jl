@@ -12,8 +12,6 @@ include("display.jl")
 
 include("invariants/wrap.jl")
 include("invariants/hasmethod.jl")
-#include("render.jl")
-#include("invariants/withcontext.jl")
 
 
 export invariant, check, check_throw, check_bool

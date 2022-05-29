@@ -1,4 +1,5 @@
 {
     "README": "documents/README.md",
-    "Reference": "references/"
+    "User guide": "documents/docs/guide.md",
+    "Reference": "references/Invariants"
 }
