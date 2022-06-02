@@ -16,6 +16,8 @@ function check(invariant, input)
 end
 
 
+check(::Type{Bool}, invariant, input) = isnothing(satisfies(invariant, input))
+
 
 """
     check_throw(invariant, input)
@@ -35,6 +37,7 @@ struct CheckResult{I, R}
     invariant::I
     result::R
 end
+Base.convert(::Type{Bool}, checkres::CheckResult) = isnothing(checkres.result)
 
 function Base.show(io::IO, checkres::CheckResult{<:I, Nothing}) where I
     print(io, "\e[32m✔ Invariant satisfied:\e[0m ")

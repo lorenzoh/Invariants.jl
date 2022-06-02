@@ -11,6 +11,8 @@ title(invs::InvariantList) = invs.title
 description(invs::InvariantList) = invs.description
 validate(invs::InvariantList, input) = all(map(inv -> validate(inv, input), invs.invariants))
 
+AbstractTrees.children(invs::InvariantList) = invs.invariants
+
 # ## AllInvariant
 
 struct AllInvariant{I<:AbstractInvariant} <: InvariantList
@@ -54,8 +56,16 @@ AnyInvariant(
 
 
 function satisfies(invs::AnyInvariant, input)
-    results = [satisfies(inv, input) for inv in invs.invariants]
-    return any(isnothing, results) ? nothing : results
+    results = []
+
+    for inv in invs.invariants
+        res = satisfies(inv, input)
+        push!(results, res)
+        if isnothing(res)
+            return nothing
+        end
+    end
+    return results
 end
 
 
@@ -63,6 +73,47 @@ function errormessage(io::IO, invs::AnyInvariant, msgs)
     __combinator_errormessage(io, invs, msgs, map(m -> isnothing(m) ? PASS : FAIL, msgs),
         faint("At least one of the invariants listed below should be satisfied:\n\n"))
 end
+
+struct SequenceInvariant{I<:AbstractInvariant} <: InvariantList
+    invariants::Vector{I}
+    title::String
+    description::Union{Nothing, String}
+end
+
+SequenceInvariant(
+    invariants, title::String;
+    description = nothing,
+    kwargs...
+) = invariant(SequenceInvariant(invariants, title, description); kwargs...)
+
+
+function satisfies(invs::SequenceInvariant, input)
+    results = []
+    failed = false
+    for inv in invs.invariants
+        if failed
+            push!(results, missing)
+            continue
+        else
+            res = satisfies(inv, input)
+            push!(results, res)
+            if !isnothing(res)
+                failed = true
+            end
+        end
+    end
+    return all(isnothing, results) ? nothing : results
+end
+
+
+function errormessage(io::IO, invs::SequenceInvariant, msgs)
+    __combinator_errormessage(io, invs, msgs, map(__sequencemarker, msgs),
+        faint("All of the invariants listed below should be satisfied:\n\n"))
+end
+
+__sequencemarker(::Nothing) = PASS
+__sequencemarker(::Missing) = UNKNOWN
+__sequencemarker(_) = FAIL
 
 # ## Helpers for printing children
 
@@ -99,7 +150,7 @@ function __errormessage_child(
     print(io, "\e[0m")
     println(io)
 
-    if !isnothing(message)
+    if !(isnothing(message) || ismissing(message))
         ioi = WrapIO(io; indent)
         #println(ioi)
         errormessage(ioi, inv, message)
