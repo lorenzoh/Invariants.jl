@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <!--     <link rel="icon" href="/favicon.png" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" /> <meta http-equiv="content-security-policy" content=""><title>Invariants.jl - Invariants/src/check.jl</title>
+	<link rel="stylesheet" href="/Invariants.jl/internal/assets/pages/__layout.svelte-1a98dd1d.css">
+	<link rel="stylesheet" href="/Invariants.jl/internal/assets/pages/_version_/_...documentId_.svelte-dba02bca.css">
+	<link rel="modulepreload" href="/Invariants.jl/internal/start-6c6681f3.js">
+	<link rel="modulepreload" href="/Invariants.jl/internal/chunks/index-307525cc.js">
+	<link rel="modulepreload" href="/Invariants.jl/internal/chunks/singletons-5a54ffdc.js">
+	<link rel="modulepreload" href="/Invariants.jl/internal/chunks/paths-396f020f.js">
+	<link rel="modulepreload" href="/Invariants.jl/internal/pages/__layout.svelte-80f23352.js">
+	<link rel="modulepreload" href="/Invariants.jl/internal/pages/_version_/_...documentId_.svelte-71ce7956.js">
+	<link rel="modulepreload" href="/Invariants.jl/internal/chunks/navigation-d32ded51.js">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap');
+    </style>
+</head>
+
+<body>
+    <div id="svelte">
+
+
+
+
+
+
+<div class="flex flex-col lg:flex-row max-w-full" style="height: 100vh; width: 100%;">
+	
+
+
+
+<div class="header border-gray-200 flex flex-col w-full border-b-[1px] lg:sticky lg:top-0 lg:w-72 lg:[min-width:18rem;] lg:max-h-full lg:overflow-y-auto lg:overflow-x-clip lg:min-h-screen lg:h-screen lg:border-b-0 lg:border-r-[1px]"><div class="title flex flex-row items-center p-3"><span class="name content-center text-xl flex-grow font-bold"><a href="/Invariants.jl/dev/documents/README.md">Invariants.jl</a></span>
+		<span class="openmenu cursor-pointer flex lg:hidden">
+<svg data-carbon-icon="Menu24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" preserveAspectRatio="xMidYMid meet" aria-hidden focusable="false"><path d="M3 18H21V19.5H3zM3 13.5H21V15H3zM3 9H21V10.5H3zM3 4.5H21V6H3z"></path>
+    
+  </svg></span></div>
+
+	<div class="menu p-3 flex-col hidden [box-shadow:inset_0_0_8px_rgba(0,0,0,.1)] border-t-[1px] lg:flex lg:[box-shadow:none] lg:border-t-0 "><div class="group svelte-16loc5n"><div class="grouptitle svelte-16loc5n">Search</div>
+			<div class="searchwidget svelte-1lm1fh6" style="width: 100%; flex-grow: 3">
+	<div class="searchfield svelte-1lm1fh6">
+<svg data-carbon-icon="Search20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor" width="20" height="20" preserveAspectRatio="xMidYMid meet" style="fill:gray; display:inline" aria-hidden focusable="false"><path d="M29,27.5859l-7.5521-7.5521a11.0177,11.0177,0,1,0-1.4141,1.4141L27.5859,29ZM4,13a9,9,0,1,1,9,9A9.01,9.01,0,0,1,4,13Z"></path>
+    
+  </svg>
+		<input type="text" placeholder="Search for text or code" style="margin-left: 4px; flex-grow: 2; outline:none; background: inherit;" class="svelte-1lm1fh6" value="">
+
+			
+			</div>
+	
+</div></div>
+		<div class="group svelte-16loc5n"><div class="grouptitle svelte-16loc5n">Pages</div>
+			<div class="ml-1 mr-1">
+	<div><a class="link svelte-mg7szw" href="/Invariants.jl/dev/documents/README.md">README</a></div>
+	<div><a class="link svelte-mg7szw" href="/Invariants.jl/dev/documents/docs/guide.md">Tutorial</a></div>
+	<div><a class="link svelte-mg7szw" href="/Invariants.jl/dev/documents/docs/examples.md">Examples</a></div>
+	<div><a class="link svelte-mg7szw" href="/Invariants.jl/dev/references/Invariants">Reference</a></div></div></div>
+
+		
+		
+
+		
+		
+		<div class="group svelte-16loc5n"><div class="grouptitle svelte-16loc5n">Links</div>
+			<a href="https://github.com/lorenzoh/Invariants.jl" class="text-gray-600 hover:text-gray-900">
+<svg data-carbon-icon="LogoGithub24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor" width="24" height="24" preserveAspectRatio="xMidYMid meet" aria-hidden focusable="false"><path fill-rule="evenodd" d="M16,2a14,14,0,0,0-4.43,27.28c.7.13,1-.3,1-.67s0-1.21,0-2.38c-3.89.84-4.71-1.88-4.71-1.88A3.71,3.71,0,0,0,6.24,22.3c-1.27-.86.1-.85.1-.85A2.94,2.94,0,0,1,8.48,22.9a3,3,0,0,0,4.08,1.16,2.93,2.93,0,0,1,.88-1.87c-3.1-.36-6.37-1.56-6.37-6.92a5.4,5.4,0,0,1,1.44-3.76,5,5,0,0,1,.14-3.7s1.17-.38,3.85,1.43a13.3,13.3,0,0,1,7,0c2.67-1.81,3.84-1.43,3.84-1.43a5,5,0,0,1,.14,3.7,5.4,5.4,0,0,1,1.44,3.76c0,5.38-3.27,6.56-6.39,6.91a3.33,3.33,0,0,1,.95,2.59c0,1.87,0,3.38,0,3.84s.25.81,1,.67A14,14,0,0,0,16,2Z"></path>
+    
+  </svg></a></div></div>
+</div>
+	
+	<div class="markdown overflow-scroll w-full lg:w-[700px] svelte-ee3m9d" style="height: 100vh;"><div class="sourcefile markdown"><h1 class="svelte-1mq1d3s"><span class="headertext filename svelte-1mq1d3s">check.jl</span>
+		<span class="icon svelte-1mq1d3s">
+<svg data-carbon-icon="Script32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor" width="32" height="32" preserveAspectRatio="xMidYMid meet" style="fill: gray; display: inline;" aria-hidden focusable="false"><path d="M18.83 26L21.41 23.42 20 22 16 26 20 30 21.42 28.59 18.83 26zM27.17 26L24.59 28.58 26 30 30 26 26 22 24.58 23.41 27.17 26z"></path><path d="M14,28H8V4h8v6a2.0058,2.0058,0,0,0,2,2h6v6h2V10a.9092.9092,0,0,0-.3-.7l-7-7A.9087.9087,0,0,0,18,2H8A2.0058,2.0058,0,0,0,6,4V28a2.0058,2.0058,0,0,0,2,2h6ZM18,4.4,23.6,10H18Z"></path>
+    
+  </svg></span></h1>
+	<div class="subtitle">check.jl
+		is a source file in module 
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants" class="reference reference svelte-1weczaz"><code class="codeinline ">Invariants</code></a></div>
+	<div class="source julia">
+			<span class="julia">
+			<div class="md" style="">
+			<p>
+			Defines functions to check invariants for interactive, argument validation and testing use cases.</p></div>
+			<pre class="codeblock codeblock svelte-vj8ryq"><code class="svelte-vj8ryq">
+			<span class="julia">
+			<span class="EQ">
+			<span class="CALL">
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.check_bool" class="reference symbol svelte-1weczaz">
+			check_bool</a>
+			<span class="LPAREN">
+			(</span>
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.invariant" class="reference symbol svelte-1weczaz">
+			invariant</a>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="IDENTIFIER">
+			input</span>
+			<span class="RPAREN">
+			)</span></span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="EQ">
+			=</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="CALL">
+			<span class="IDENTIFIER">
+			isnothing</span>
+			<span class="LPAREN">
+			(</span>
+			<span class="CALL">
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.satisfies" class="reference symbol svelte-1weczaz">
+			satisfies</a>
+			<span class="LPAREN">
+			(</span>
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.invariant" class="reference symbol svelte-1weczaz">
+			invariant</a>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="IDENTIFIER">
+			input</span>
+			<span class="RPAREN">
+			)</span></span>
+			<span class="RPAREN">
+			)</span></span></span>
+			<span class="NEWLINE_WS">
+			
+</span>
+			<span class="NEWLINE_WS">
+			
+</span>
+			<span class="NEWLINE_WS">
+			
+</span>
+			<span class="FUNCTION">
+			<span class="FUNCTION">
+			function</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="CALL">
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.check" class="reference symbol svelte-1weczaz">
+			check</a>
+			<span class="LPAREN">
+			(</span>
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.invariant" class="reference symbol svelte-1weczaz">
+			invariant</a>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="IDENTIFIER">
+			input</span>
+			<span class="RPAREN">
+			)</span></span>
+			<span class="BLOCK">
+			<span class="NEWLINE_WS">
+			
+    </span>
+			<span class="EQ">
+			<span class="IDENTIFIER">
+			res</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="EQ">
+			=</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="CALL">
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.satisfies" class="reference symbol svelte-1weczaz">
+			satisfies</a>
+			<span class="LPAREN">
+			(</span>
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.invariant" class="reference symbol svelte-1weczaz">
+			invariant</a>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="IDENTIFIER">
+			input</span>
+			<span class="RPAREN">
+			)</span></span></span>
+			<span class="NEWLINE_WS">
+			
+    </span>
+			<span class="RETURN">
+			<span class="RETURN">
+			return</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="CALL">
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.CheckResult" class="reference symbol svelte-1weczaz">
+			CheckResult</a>
+			<span class="LPAREN">
+			(</span>
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.invariant" class="reference symbol svelte-1weczaz">
+			invariant</a>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="IDENTIFIER">
+			res</span>
+			<span class="RPAREN">
+			)</span></span></span>
+			<span class="NEWLINE_WS">
+			
+</span></span>
+			<span class="END">
+			end</span></span>
+			<span class="NEWLINE_WS">
+			
+</span>
+			<span class="NEWLINE_WS">
+			
+</span>
+			<span class="NEWLINE_WS">
+			
+</span>
+			<span class="EQ">
+			<span class="CALL">
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.check" class="reference symbol svelte-1weczaz">
+			check</a>
+			<span class="LPAREN">
+			(</span>
+			<span class="DECLARATION">
+			<span class="DECLARATION">
+			::</span>
+			<span class="CURLY">
+			<span class="IDENTIFIER">
+			Type</span>
+			<span class="LBRACE">
+			{</span>
+			<span class="IDENTIFIER">
+			Bool</span>
+			<span class="RBRACE">
+			}</span></span></span>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.invariant" class="reference symbol svelte-1weczaz">
+			invariant</a>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="IDENTIFIER">
+			input</span>
+			<span class="RPAREN">
+			)</span></span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="EQ">
+			=</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="CALL">
+			<span class="IDENTIFIER">
+			isnothing</span>
+			<span class="LPAREN">
+			(</span>
+			<span class="CALL">
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.satisfies" class="reference symbol svelte-1weczaz">
+			satisfies</a>
+			<span class="LPAREN">
+			(</span>
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.invariant" class="reference symbol svelte-1weczaz">
+			invariant</a>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="IDENTIFIER">
+			input</span>
+			<span class="RPAREN">
+			)</span></span>
+			<span class="RPAREN">
+			)</span></span></span>
+			<span class="NEWLINE_WS">
+			
+</span>
+			<span class="NEWLINE_WS">
+			
+</span>
+			<span class="NEWLINE_WS">
+			
+</span>
+			<span class="FUNCTION">
+			<span class="FUNCTION">
+			function</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="CALL">
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.check_throw" class="reference symbol svelte-1weczaz">
+			check_throw</a>
+			<span class="LPAREN">
+			(</span>
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.invariant" class="reference symbol svelte-1weczaz">
+			invariant</a>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="IDENTIFIER">
+			input</span>
+			<span class="RPAREN">
+			)</span></span>
+			<span class="BLOCK">
+			<span class="NEWLINE_WS">
+			
+    </span>
+			<span class="EQ">
+			<span class="IDENTIFIER">
+			res</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="EQ">
+			=</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="CALL">
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.satisfies" class="reference symbol svelte-1weczaz">
+			satisfies</a>
+			<span class="LPAREN">
+			(</span>
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.invariant" class="reference symbol svelte-1weczaz">
+			invariant</a>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="IDENTIFIER">
+			input</span>
+			<span class="RPAREN">
+			)</span></span></span>
+			<span class="NEWLINE_WS">
+			
+    </span>
+			<span class="LAZY_AND">
+			<span class="CALL">
+			<span class="IDENTIFIER">
+			isnothing</span>
+			<span class="LPAREN">
+			(</span>
+			<span class="IDENTIFIER">
+			res</span>
+			<span class="RPAREN">
+			)</span></span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="LAZY_AND">
+			&amp;&amp;</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="RETURN">
+			<span class="RETURN">
+			return</span>
+			<span class="NOTHING">
+			</span></span></span>
+			<span class="NEWLINE_WS">
+			
+    </span>
+			<span class="CALL">
+			<span class="IDENTIFIER">
+			throw</span>
+			<span class="LPAREN">
+			(</span>
+			<span class="CALL">
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.InvariantException" class="reference symbol svelte-1weczaz">
+			InvariantException</a>
+			<span class="LPAREN">
+			(</span>
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.invariant" class="reference symbol svelte-1weczaz">
+			invariant</a>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="IDENTIFIER">
+			res</span>
+			<span class="RPAREN">
+			)</span></span>
+			<span class="RPAREN">
+			)</span></span>
+			<span class="NEWLINE_WS">
+			
+</span></span>
+			<span class="END">
+			end</span></span>
+			<span class="NEWLINE_WS">
+			
+</span>
+			<span class="NEWLINE_WS">
+			
+</span>
+			<span class="NEWLINE_WS">
+			
+</span>
+			<span class="STRUCT">
+			<span class="FALSE">
+			</span>
+			<span class="STRUCT">
+			struct</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="CURLY">
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.CheckResult" class="reference symbol svelte-1weczaz">
+			CheckResult</a>
+			<span class="LBRACE">
+			{</span>
+			<span class="IDENTIFIER">
+			I</span>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="IDENTIFIER">
+			R</span>
+			<span class="RBRACE">
+			}</span></span>
+			<span class="BLOCK">
+			<span class="NEWLINE_WS">
+			
+    </span>
+			<span class="DECLARATION">
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.invariant" class="reference symbol svelte-1weczaz">
+			invariant</a>
+			<span class="DECLARATION">
+			::</span>
+			<span class="IDENTIFIER">
+			I</span></span>
+			<span class="NEWLINE_WS">
+			
+    </span>
+			<span class="DECLARATION">
+			<span class="IDENTIFIER">
+			result</span>
+			<span class="DECLARATION">
+			::</span>
+			<span class="IDENTIFIER">
+			R</span></span>
+			<span class="NEWLINE_WS">
+			
+</span></span>
+			<span class="END">
+			end</span></span>
+			<span class="NEWLINE_WS">
+			
+</span>
+			<span class="EQ">
+			<span class="CALL">
+			<span class="DOT">
+			<span class="IDENTIFIER">
+			Base</span>
+			<span class="DOT">
+			.</span>
+			<span class="QUOTE">
+			<span class="IDENTIFIER">
+			convert</span></span></span>
+			<span class="LPAREN">
+			(</span>
+			<span class="DECLARATION">
+			<span class="DECLARATION">
+			::</span>
+			<span class="CURLY">
+			<span class="IDENTIFIER">
+			Type</span>
+			<span class="LBRACE">
+			{</span>
+			<span class="IDENTIFIER">
+			Bool</span>
+			<span class="RBRACE">
+			}</span></span></span>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="DECLARATION">
+			<span class="IDENTIFIER">
+			checkres</span>
+			<span class="DECLARATION">
+			::</span>
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.CheckResult" class="reference symbol svelte-1weczaz">
+			CheckResult</a></span>
+			<span class="RPAREN">
+			)</span></span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="EQ">
+			=</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="CALL">
+			<span class="IDENTIFIER">
+			isnothing</span>
+			<span class="LPAREN">
+			(</span>
+			<span class="DOT">
+			<span class="IDENTIFIER">
+			checkres</span>
+			<span class="DOT">
+			.</span>
+			<span class="QUOTE">
+			<span class="IDENTIFIER">
+			result</span></span></span>
+			<span class="RPAREN">
+			)</span></span></span>
+			<span class="NEWLINE_WS">
+			
+</span>
+			<span class="NEWLINE_WS">
+			
+</span>
+			<span class="FUNCTION">
+			<span class="FUNCTION">
+			function</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="WHERE">
+			<span class="CALL">
+			<span class="DOT">
+			<span class="IDENTIFIER">
+			Base</span>
+			<span class="DOT">
+			.</span>
+			<span class="QUOTE">
+			<span class="IDENTIFIER">
+			show</span></span></span>
+			<span class="LPAREN">
+			(</span>
+			<span class="DECLARATION">
+			<span class="IDENTIFIER">
+			io</span>
+			<span class="DECLARATION">
+			::</span>
+			<span class="IDENTIFIER">
+			IO</span></span>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="DECLARATION">
+			<span class="IDENTIFIER">
+			checkres</span>
+			<span class="DECLARATION">
+			::</span>
+			<span class="CURLY">
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.CheckResult" class="reference symbol svelte-1weczaz">
+			CheckResult</a>
+			<span class="LBRACE">
+			{</span>
+			<span class="ISSUBTYPE">
+			<span class="ISSUBTYPE">
+			&lt;:</span>
+			<span class="IDENTIFIER">
+			I</span></span>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="IDENTIFIER">
+			Nothing</span>
+			<span class="RBRACE">
+			}</span></span></span>
+			<span class="RPAREN">
+			)</span></span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="WHERE">
+			where</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="IDENTIFIER">
+			I</span></span>
+			<span class="BLOCK">
+			<span class="NEWLINE_WS">
+			
+    </span>
+			<span class="CALL">
+			<span class="IDENTIFIER">
+			print</span>
+			<span class="LPAREN">
+			(</span>
+			<span class="IDENTIFIER">
+			io</span>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="DQUOTE">
+			&quot;</span>
+			<span class="STRING">
+			\e[32m✔ Invariant satisfied:\e[0m </span>
+			<span class="DQUOTE">
+			&quot;</span>
+			<span class="RPAREN">
+			)</span></span>
+			<span class="NEWLINE_WS">
+			
+    </span>
+			<span class="CALL">
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.showtitle" class="reference symbol svelte-1weczaz">
+			showtitle</a>
+			<span class="LPAREN">
+			(</span>
+			<span class="IDENTIFIER">
+			io</span>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="DOT">
+			<span class="IDENTIFIER">
+			checkres</span>
+			<span class="DOT">
+			.</span>
+			<span class="QUOTE">
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.invariant" class="reference symbol svelte-1weczaz">
+			invariant</a></span></span>
+			<span class="RPAREN">
+			)</span></span>
+			<span class="NEWLINE_WS">
+			
+</span></span>
+			<span class="END">
+			end</span></span>
+			<span class="NEWLINE_WS">
+			
+</span>
+			<span class="NEWLINE_WS">
+			
+</span>
+			<span class="FUNCTION">
+			<span class="FUNCTION">
+			function</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="CALL">
+			<span class="DOT">
+			<span class="IDENTIFIER">
+			Base</span>
+			<span class="DOT">
+			.</span>
+			<span class="QUOTE">
+			<span class="IDENTIFIER">
+			show</span></span></span>
+			<span class="LPAREN">
+			(</span>
+			<span class="DECLARATION">
+			<span class="IDENTIFIER">
+			io</span>
+			<span class="DECLARATION">
+			::</span>
+			<span class="IDENTIFIER">
+			IO</span></span>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="DECLARATION">
+			<span class="IDENTIFIER">
+			checkres</span>
+			<span class="DECLARATION">
+			::</span>
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.CheckResult" class="reference symbol svelte-1weczaz">
+			CheckResult</a></span>
+			<span class="RPAREN">
+			)</span></span>
+			<span class="BLOCK">
+			<span class="NEWLINE_WS">
+			
+    </span>
+			<span class="CALL">
+			<span class="IDENTIFIER">
+			print</span>
+			<span class="LPAREN">
+			(</span>
+			<span class="IDENTIFIER">
+			io</span>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="DQUOTE">
+			&quot;</span>
+			<span class="STRING">
+			\e[1m\e[31m⨯ Invariant not satisfied:\e[0m\e[1m </span>
+			<span class="DQUOTE">
+			&quot;</span>
+			<span class="RPAREN">
+			)</span></span>
+			<span class="NEWLINE_WS">
+			
+    </span>
+			<span class="CALL">
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.showtitle" class="reference symbol svelte-1weczaz">
+			showtitle</a>
+			<span class="LPAREN">
+			(</span>
+			<span class="IDENTIFIER">
+			io</span>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="DOT">
+			<span class="IDENTIFIER">
+			checkres</span>
+			<span class="DOT">
+			.</span>
+			<span class="QUOTE">
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.invariant" class="reference symbol svelte-1weczaz">
+			invariant</a></span></span>
+			<span class="RPAREN">
+			)</span></span>
+			<span class="SEMICOLON">
+			;</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="CALL">
+			<span class="IDENTIFIER">
+			print</span>
+			<span class="LPAREN">
+			(</span>
+			<span class="IDENTIFIER">
+			io</span>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="DQUOTE">
+			&quot;</span>
+			<span class="STRING">
+			\e[22m\n</span>
+			<span class="DQUOTE">
+			&quot;</span>
+			<span class="RPAREN">
+			)</span></span>
+			<span class="NEWLINE_WS">
+			
+    </span>
+			<span class="CALL">
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.errormessage" class="reference symbol svelte-1weczaz">
+			errormessage</a>
+			<span class="LPAREN">
+			(</span>
+			<span class="IDENTIFIER">
+			io</span>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="DOT">
+			<span class="IDENTIFIER">
+			checkres</span>
+			<span class="DOT">
+			.</span>
+			<span class="QUOTE">
+			
+	
+		<a sveltekit:prefetch href="/Invariants.jl/dev/references/Invariants.invariant" class="reference symbol svelte-1weczaz">
+			invariant</a></span></span>
+			<span class="COMMA">
+			,</span>
+			<span class="WHITESPACE">
+			 </span>
+			<span class="DOT">
+			<span class="IDENTIFIER">
+			checkres</span>
+			<span class="DOT">
+			.</span>
+			<span class="QUOTE">
+			<span class="IDENTIFIER">
+			result</span></span></span>
+			<span class="RPAREN">
+			)</span></span>
+			<span class="NEWLINE_WS">
+			
+</span></span>
+			<span class="END">
+			end</span></span></span></code></pre></span></div>
+</div></div>
+</div>
+
+
+		<script type="module" data-hydrate="1ktlp8b">
+		import { start } from "/Invariants.jl/internal/start-6c6681f3.js";
+		start({
+			target: document.querySelector('[data-hydrate="1ktlp8b"]').parentNode,
+			paths: {"base":"/Invariants.jl","assets":"/Invariants.jl"},
+			session: {},
+			route: true,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/Invariants.jl/internal/pages/__layout.svelte-80f23352.js"),
+						import("/Invariants.jl/internal/pages/_version_/_...documentId_.svelte-71ce7956.js")
+				],
+				params: {version:"dev",documentId:"sourcefiles\u002FInvariants\u002Fsrc\u002Fcheck.jl"},
+				routeId: "[version]/[...documentId]"
+			}
+		});
+	</script><script type="application/json" sveltekit:data-type="data" sveltekit:data-url="/Invariants.jl/api/dev/config.json">{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"{\"linktree\":{\"README\":\"documents/README.md\",\"Tutorial\":\"documents/docs/guide.md\",\"Examples\":\"documents/docs/examples.md\",\"Reference\":\"references/Invariants\"},\"columnWidth\":650,\"title\":\"Invariants.jl\",\"url\":\"https://github.com/lorenzoh/Invariants.jl\",\"defaultDocument\":\"documents/README.md\"}"}</script>
+	<script type="application/json" sveltekit:data-type="data" sveltekit:data-url="/Invariants.jl/api/dev/attributes.json">{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"{\"references/Invariants.runtests\":{\"tag\":\"documentation\",\"title\":\"runtests\"},\"references/Invariants.satisfies\":{\"tag\":\"documentation\",\"title\":\"satisfies\"},\"references/Invariants.showdescription\":{\"tag\":\"documentation\",\"title\":\"showdescription\"},\"sourcefiles/Invariants/src/check.jl\":{\"tag\":\"sourcefile\",\"title\":\"Invariants/src/check.jl\"},\"references/Invariants.__getmarker\":{\"tag\":\"documentation\",\"title\":\"__getmarker\"},\"references/Invariants.UNKNOWN\":{\"tag\":\"documentation\",\"title\":\"UNKNOWN\"},\"references/Invariants.InvariantList\":{\"tag\":\"documentation\",\"title\":\"InvariantList\"},\"references/Invariants.AbstractInvariant\":{\"tag\":\"documentation\",\"title\":\"AbstractInvariant\"},\"references/Invariants.validate\":{\"tag\":\"documentation\",\"title\":\"validate\"},\"documents/docs/guide.md\":{\"tag\":\"document\",\"title\":\"Tutorial\"},\"references/Invariants.CheckResult\":{\"tag\":\"documentation\",\"title\":\"CheckResult\"},\"references/Invariants.check\":{\"tag\":\"documentation\",\"title\":\"check\"},\"references/Invariants.IndentIO\":{\"tag\":\"documentation\",\"title\":\"IndentIO\"},\"references/Invariants.InvariantException\":{\"tag\":\"documentation\",\"title\":\"InvariantException\"},\"references/Invariants.md\":{\"tag\":\"documentation\",\"title\":\"md\"},\"sourcefiles/Invariants/src/Invariants.jl\":{\"tag\":\"sourcefile\",\"title\":\"Invariants/src/Invariants.jl\"},\"references/Invariants.__takestringwidth\":{\"tag\":\"documentation\",\"title\":\"__takestringwidth\"},\"documents/README.md\":{\"tag\":\"document\",\"title\":\"Invariants\"},\"references/Invariants.hasmethod_invariant\":{\"tag\":\"documentation\",\"title\":\"hasmethod_invariant\"},\"sourcefiles/Invariants/src/invariants/wrap.jl\":{\"tag\":\"sourcefile\",\"title\":\"Invariants/src/invariants/wrap.jl\"},\"references/Invariants.exampleinvariant\":{\"tag\":\"documentation\",\"title\":\"exampleinvariant\"},\"references/Invariants.PASS\":{\"tag\":\"documentation\",\"title\":\"PASS\"},\"references/Invariants.indent\":{\"tag\":\"documentation\",\"title\":\"indent\"},\"references/Invariants.LimitLineLengthIO\":{\"tag\":\"documentation\",\"title\":\"LimitLineLengthIO\"},\"references/Invariants._title_hasmethod\":{\"tag\":\"documentation\",\"title\":\"_title_hasmethod\"},\"references/Invariants.__combinator_errormessage\":{\"tag\":\"documentation\",\"title\":\"__combinator_errormessage\"},\"references/Invariants.AllInvariant\":{\"tag\":\"documentation\",\"title\":\"AllInvariant\"},\"references/Invariants.##InlineTest-01b48f5c342f65df7fcd07f28f0d2cacbb09f0a0.__init__\":{\"tag\":\"documentation\",\"title\":\"__init__\"},\"references/Invariants.check_bool\":{\"tag\":\"documentation\",\"title\":\"check_bool\"},\"references/Invariants._signature\":{\"tag\":\"documentation\",\"title\":\"_signature\"},\"references/Invariants.WrapInvariant\":{\"tag\":\"documentation\",\"title\":\"WrapInvariant\"},\"references/Invariants.##InlineTest-01b48f5c342f65df7fcd07f28f0d2cacbb09f0a0.tests\":{\"tag\":\"documentation\",\"title\":\"tests\"},\"sourcefiles/Invariants/src/combinators.jl\":{\"tag\":\"sourcefile\",\"title\":\"Invariants/src/combinators.jl\"},\"references/Invariants._validate_hasmethod\":{\"tag\":\"documentation\",\"title\":\"_validate_hasmethod\"},\"references/Invariants.check_throw\":{\"tag\":\"documentation\",\"title\":\"check_throw\"},\"references/Invariants.title\":{\"tag\":\"documentation\",\"title\":\"title\"},\"references/Invariants.showtitle\":{\"tag\":\"documentation\",\"title\":\"showtitle\"},\"sourcefiles/Invariants/src/invariant.jl\":{\"tag\":\"sourcefile\",\"title\":\"Invariants/src/invariant.jl\"},\"references/Invariants.##InlineTest-01b48f5c342f65df7fcd07f28f0d2cacbb09f0a0.TESTSET_MACROS\":{\"tag\":\"documentation\",\"title\":\"TESTSET_MACROS\"},\"references/Invariants.description\":{\"tag\":\"documentation\",\"title\":\"description\"},\"sourcefiles/Invariants/src/invariants/hasmethod.jl\":{\"tag\":\"sourcefile\",\"title\":\"Invariants/src/invariants/hasmethod.jl\"},\"references/Invariants.__errormessage_child\":{\"tag\":\"documentation\",\"title\":\"__errormessage_child\"},\"references/Invariants.FAIL\":{\"tag\":\"documentation\",\"title\":\"FAIL\"},\"references/Invariants\":{\"tag\":\"documentation\",\"title\":\"Invariants\"},\"references/Invariants.Invariant\":{\"tag\":\"documentation\",\"title\":\"Invariant\"},\"references/Invariants.errormessage\":{\"tag\":\"documentation\",\"title\":\"errormessage\"},\"references/Invariants.faint\":{\"tag\":\"documentation\",\"title\":\"faint\"},\"references/Invariants.AnyInvariant\":{\"tag\":\"documentation\",\"title\":\"AnyInvariant\"},\"references/Invariants.MarkdownException\":{\"tag\":\"documentation\",\"title\":\"MarkdownException\"},\"sourcefiles/Invariants/src/display.jl\":{\"tag\":\"sourcefile\",\"title\":\"Invariants/src/display.jl\"},\"references/Invariants.__cleaned\":{\"tag\":\"documentation\",\"title\":\"__cleaned\"},\"references/Invariants.invariant\":{\"tag\":\"documentation\",\"title\":\"invariant\"},\"references/Invariants.testinvariant\":{\"tag\":\"documentation\",\"title\":\"testinvariant\"},\"documents/docs/examples.md\":{\"tag\":\"document\",\"title\":\"Examples\"},\"references/Invariants.WrapIO\":{\"tag\":\"documentation\",\"title\":\"WrapIO\"}}"}</script>
+	<script type="application/json" sveltekit:data-type="data" sveltekit:data-url="/Invariants.jl/api/dev/searchindex.json">{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"{\"version\":\"2.3.9\",\"fields\":[\"title\",\"body\"],\"fieldVectors\":[[\"title/references/Invariants.runtests\",[0,3.486]],[\"body/references/Invariants.runtests\",[]],[\"title/references/Invariants.satisfies\",[1,3.486]],[\"body/references/Invariants.satisfies\",[]],[\"title/references/Invariants.showdescription\",[2,3.486]],[\"body/references/Invariants.showdescription\",[]],[\"title/references/Invariants.__getmarker\",[3,3.486]],[\"body/references/Invariants.__getmarker\",[]],[\"title/references/Invariants.UNKNOWN\",[4,3.486]],[\"body/references/Invariants.UNKNOWN\",[]],[\"title/references/Invariants.InvariantList\",[5,3.486]],[\"body/references/Invariants.InvariantList\",[]],[\"title/references/Invariants.AbstractInvariant\",[6,3.486]],[\"body/references/Invariants.AbstractInvariant\",[]],[\"title/references/Invariants.validate\",[7,3.486]],[\"body/references/Invariants.validate\",[]],[\"title/documents/docs/guide.md\",[8,3.486]],[\"body/documents/docs/guide.md\",[]],[\"title/references/Invariants.CheckResult\",[9,3.486]],[\"body/references/Invariants.CheckResult\",[]],[\"title/references/Invariants.check\",[10,3.486]],[\"body/references/Invariants.check\",[]],[\"title/references/Invariants.IndentIO\",[11,3.486]],[\"body/references/Invariants.IndentIO\",[]],[\"title/references/Invariants.InvariantException\",[12,3.486]],[\"body/references/Invariants.InvariantException\",[]],[\"title/references/Invariants.md\",[13,3.486]],[\"body/references/Invariants.md\",[]],[\"title/references/Invariants.__takestringwidth\",[14,3.486]],[\"body/references/Invariants.__takestringwidth\",[]],[\"title/documents/README.md\",[15,2.388]],[\"body/documents/README.md\",[]],[\"title/references/Invariants.hasmethod_invariant\",[16,3.486]],[\"body/references/Invariants.hasmethod_invariant\",[]],[\"title/references/Invariants.exampleinvariant\",[17,3.486]],[\"body/references/Invariants.exampleinvariant\",[]],[\"title/references/Invariants.PASS\",[18,3.486]],[\"body/references/Invariants.PASS\",[]],[\"title/references/Invariants.indent\",[19,3.486]],[\"body/references/Invariants.indent\",[]],[\"title/references/Invariants.LimitLineLengthIO\",[20,3.486]],[\"body/references/Invariants.LimitLineLengthIO\",[]],[\"title/references/Invariants._title_hasmethod\",[21,3.486]],[\"body/references/Invariants._title_hasmethod\",[]],[\"title/references/Invariants.__combinator_errormessage\",[22,3.486]],[\"body/references/Invariants.__combinator_errormessage\",[]],[\"title/references/Invariants.AllInvariant\",[23,3.486]],[\"body/references/Invariants.AllInvariant\",[]],[\"title/references/Invariants.##InlineTest-01b48f5c342f65df7fcd07f28f0d2cacbb09f0a0.__init__\",[24,3.486]],[\"body/references/Invariants.##InlineTest-01b48f5c342f65df7fcd07f28f0d2cacbb09f0a0.__init__\",[]],[\"title/references/Invariants.check_bool\",[25,3.486]],[\"body/references/Invariants.check_bool\",[]],[\"title/references/Invariants._signature\",[26,3.486]],[\"body/references/Invariants._signature\",[]],[\"title/references/Invariants.WrapInvariant\",[27,3.486]],[\"body/references/Invariants.WrapInvariant\",[]],[\"title/references/Invariants.##InlineTest-01b48f5c342f65df7fcd07f28f0d2cacbb09f0a0.tests\",[28,3.486]],[\"body/references/Invariants.##InlineTest-01b48f5c342f65df7fcd07f28f0d2cacbb09f0a0.tests\",[]],[\"title/references/Invariants._validate_hasmethod\",[29,3.486]],[\"body/references/Invariants._validate_hasmethod\",[]],[\"title/references/Invariants.check_throw\",[30,3.486]],[\"body/references/Invariants.check_throw\",[]],[\"title/references/Invariants.title\",[31,3.486]],[\"body/references/Invariants.title\",[]],[\"title/references/Invariants.showtitle\",[32,3.486]],[\"body/references/Invariants.showtitle\",[]],[\"title/references/Invariants.##InlineTest-01b48f5c342f65df7fcd07f28f0d2cacbb09f0a0.TESTSET_MACROS\",[33,3.486]],[\"body/references/Invariants.##InlineTest-01b48f5c342f65df7fcd07f28f0d2cacbb09f0a0.TESTSET_MACROS\",[]],[\"title/references/Invariants.description\",[34,3.486]],[\"body/references/Invariants.description\",[]],[\"title/references/Invariants.__errormessage_child\",[35,3.486]],[\"body/references/Invariants.__errormessage_child\",[]],[\"title/references/Invariants.FAIL\",[36,3.486]],[\"body/references/Invariants.FAIL\",[]],[\"title/references/Invariants\",[15,2.388]],[\"body/references/Invariants\",[]],[\"title/references/Invariants.Invariant\",[15,2.388]],[\"body/references/Invariants.Invariant\",[]],[\"title/references/Invariants.errormessage\",[37,3.486]],[\"body/references/Invariants.errormessage\",[]],[\"title/references/Invariants.faint\",[38,3.486]],[\"body/references/Invariants.faint\",[]],[\"title/references/Invariants.AnyInvariant\",[39,3.486]],[\"body/references/Invariants.AnyInvariant\",[]],[\"title/references/Invariants.MarkdownException\",[40,3.486]],[\"body/references/Invariants.MarkdownException\",[]],[\"title/references/Invariants.__cleaned\",[41,3.486]],[\"body/references/Invariants.__cleaned\",[]],[\"title/references/Invariants.invariant\",[15,2.388]],[\"body/references/Invariants.invariant\",[]],[\"title/references/Invariants.testinvariant\",[42,3.486]],[\"body/references/Invariants.testinvariant\",[]],[\"title/documents/docs/examples.md\",[43,3.486]],[\"body/documents/docs/examples.md\",[]],[\"title/references/Invariants.WrapIO\",[44,3.486]],[\"body/references/Invariants.WrapIO\",[]]],\"invertedIndex\":[[\"__clean\",{\"_index\":41,\"title\":{\"references/Invariants.__cleaned\":{}},\"body\":{}}],[\"__combinator_errormessag\",{\"_index\":22,\"title\":{\"references/Invariants.__combinator_errormessage\":{}},\"body\":{}}],[\"__errormessage_child\",{\"_index\":35,\"title\":{\"references/Invariants.__errormessage_child\":{}},\"body\":{}}],[\"__getmark\",{\"_index\":3,\"title\":{\"references/Invariants.__getmarker\":{}},\"body\":{}}],[\"__init__\",{\"_index\":24,\"title\":{\"references/Invariants.##InlineTest-01b48f5c342f65df7fcd07f28f0d2cacbb09f0a0.__init__\":{}},\"body\":{}}],[\"__takestringwidth\",{\"_index\":14,\"title\":{\"references/Invariants.__takestringwidth\":{}},\"body\":{}}],[\"_signatur\",{\"_index\":26,\"title\":{\"references/Invariants._signature\":{}},\"body\":{}}],[\"_title_hasmethod\",{\"_index\":21,\"title\":{\"references/Invariants._title_hasmethod\":{}},\"body\":{}}],[\"_validate_hasmethod\",{\"_index\":29,\"title\":{\"references/Invariants._validate_hasmethod\":{}},\"body\":{}}],[\"abstractinvari\",{\"_index\":6,\"title\":{\"references/Invariants.AbstractInvariant\":{}},\"body\":{}}],[\"allinvari\",{\"_index\":23,\"title\":{\"references/Invariants.AllInvariant\":{}},\"body\":{}}],[\"anyinvari\",{\"_index\":39,\"title\":{\"references/Invariants.AnyInvariant\":{}},\"body\":{}}],[\"check\",{\"_index\":10,\"title\":{\"references/Invariants.check\":{}},\"body\":{}}],[\"check_bool\",{\"_index\":25,\"title\":{\"references/Invariants.check_bool\":{}},\"body\":{}}],[\"check_throw\",{\"_index\":30,\"title\":{\"references/Invariants.check_throw\":{}},\"body\":{}}],[\"checkresult\",{\"_index\":9,\"title\":{\"references/Invariants.CheckResult\":{}},\"body\":{}}],[\"descript\",{\"_index\":34,\"title\":{\"references/Invariants.description\":{}},\"body\":{}}],[\"errormessag\",{\"_index\":37,\"title\":{\"references/Invariants.errormessage\":{}},\"body\":{}}],[\"exampl\",{\"_index\":43,\"title\":{\"documents/docs/examples.md\":{}},\"body\":{}}],[\"exampleinvari\",{\"_index\":17,\"title\":{\"references/Invariants.exampleinvariant\":{}},\"body\":{}}],[\"fail\",{\"_index\":36,\"title\":{\"references/Invariants.FAIL\":{}},\"body\":{}}],[\"faint\",{\"_index\":38,\"title\":{\"references/Invariants.faint\":{}},\"body\":{}}],[\"hasmethod_invari\",{\"_index\":16,\"title\":{\"references/Invariants.hasmethod_invariant\":{}},\"body\":{}}],[\"indent\",{\"_index\":19,\"title\":{\"references/Invariants.indent\":{}},\"body\":{}}],[\"indentio\",{\"_index\":11,\"title\":{\"references/Invariants.IndentIO\":{}},\"body\":{}}],[\"invari\",{\"_index\":15,\"title\":{\"documents/README.md\":{},\"references/Invariants\":{},\"references/Invariants.Invariant\":{},\"references/Invariants.invariant\":{}},\"body\":{}}],[\"invariantexcept\",{\"_index\":12,\"title\":{\"references/Invariants.InvariantException\":{}},\"body\":{}}],[\"invariantlist\",{\"_index\":5,\"title\":{\"references/Invariants.InvariantList\":{}},\"body\":{}}],[\"limitlinelengthio\",{\"_index\":20,\"title\":{\"references/Invariants.LimitLineLengthIO\":{}},\"body\":{}}],[\"markdownexcept\",{\"_index\":40,\"title\":{\"references/Invariants.MarkdownException\":{}},\"body\":{}}],[\"md\",{\"_index\":13,\"title\":{\"references/Invariants.md\":{}},\"body\":{}}],[\"pass\",{\"_index\":18,\"title\":{\"references/Invariants.PASS\":{}},\"body\":{}}],[\"runtest\",{\"_index\":0,\"title\":{\"references/Invariants.runtests\":{}},\"body\":{}}],[\"satisfi\",{\"_index\":1,\"title\":{\"references/Invariants.satisfies\":{}},\"body\":{}}],[\"showdescript\",{\"_index\":2,\"title\":{\"references/Invariants.showdescription\":{}},\"body\":{}}],[\"showtitl\",{\"_index\":32,\"title\":{\"references/Invariants.showtitle\":{}},\"body\":{}}],[\"test\",{\"_index\":28,\"title\":{\"references/Invariants.##InlineTest-01b48f5c342f65df7fcd07f28f0d2cacbb09f0a0.tests\":{}},\"body\":{}}],[\"testinvari\",{\"_index\":42,\"title\":{\"references/Invariants.testinvariant\":{}},\"body\":{}}],[\"testset_macro\",{\"_index\":33,\"title\":{\"references/Invariants.##InlineTest-01b48f5c342f65df7fcd07f28f0d2cacbb09f0a0.TESTSET_MACROS\":{}},\"body\":{}}],[\"titl\",{\"_index\":31,\"title\":{\"references/Invariants.title\":{}},\"body\":{}}],[\"tutori\",{\"_index\":8,\"title\":{\"documents/docs/guide.md\":{}},\"body\":{}}],[\"unknown\",{\"_index\":4,\"title\":{\"references/Invariants.UNKNOWN\":{}},\"body\":{}}],[\"valid\",{\"_index\":7,\"title\":{\"references/Invariants.validate\":{}},\"body\":{}}],[\"wrapinvari\",{\"_index\":27,\"title\":{\"references/Invariants.WrapInvariant\":{}},\"body\":{}}],[\"wrapio\",{\"_index\":44,\"title\":{\"references/Invariants.WrapIO\":{}},\"body\":{}}]],\"pipeline\":[\"stemmer\"]}"}</script>
+	<script type="application/json" sveltekit:data-type="data" sveltekit:data-url="/Invariants.jl/api/dev/sourcefiles/Invariants/src/check.jl.json">{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"{\"attributes\":{\"module\":\"Invariants\",\"backlinks\":[],\"path\":\"/home/runner/.julia/packages/Invariants/NDc7K/src/check.jl\",\"title\":\"Invariants/src/check.jl\"},\"tag\":\"sourcefile\",\"children\":[{\"attributes\":{},\"tag\":\"julia\",\"children\":[{\"attributes\":{},\"tag\":\"md\",\"children\":[{\"attributes\":{},\"tag\":\"p\",\"children\":[\"Defines functions to check invariants for interactive, argument validation and testing use cases.\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{\"lang\":\"julia\"},\"tag\":\"codeblock\",\"children\":[{\"attributes\":{},\"tag\":\"julia\",\"children\":[{\"attributes\":{},\"tag\":\"EQ\",\"children\":[{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.check_bool\"},\"tag\":\"reference\",\"children\":[\"check_bool\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.invariant\"},\"tag\":\"reference\",\"children\":[\"invariant\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"input\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"EQ\",\"children\":[\"=\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"isnothing\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.satisfies\"},\"tag\":\"reference\",\"children\":[\"satisfies\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.invariant\"},\"tag\":\"reference\",\"children\":[\"invariant\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"input\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"FUNCTION\",\"children\":[{\"attributes\":{},\"tag\":\"FUNCTION\",\"children\":[\"function\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.check\"},\"tag\":\"reference\",\"children\":[\"check\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.invariant\"},\"tag\":\"reference\",\"children\":[\"invariant\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"input\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"BLOCK\",\"children\":[{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n    \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"EQ\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"res\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"EQ\",\"children\":[\"=\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.satisfies\"},\"tag\":\"reference\",\"children\":[\"satisfies\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.invariant\"},\"tag\":\"reference\",\"children\":[\"invariant\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"input\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n    \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RETURN\",\"children\":[{\"attributes\":{},\"tag\":\"RETURN\",\"children\":[\"return\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.CheckResult\"},\"tag\":\"reference\",\"children\":[\"CheckResult\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.invariant\"},\"tag\":\"reference\",\"children\":[\"invariant\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"res\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"END\",\"children\":[\"end\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"EQ\",\"children\":[{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.check\"},\"tag\":\"reference\",\"children\":[\"check\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DECLARATION\",\"children\":[{\"attributes\":{},\"tag\":\"DECLARATION\",\"children\":[\"::\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CURLY\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"Type\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LBRACE\",\"children\":[\"{\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"Bool\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RBRACE\",\"children\":[\"}\"],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.invariant\"},\"tag\":\"reference\",\"children\":[\"invariant\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"input\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"EQ\",\"children\":[\"=\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"isnothing\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.satisfies\"},\"tag\":\"reference\",\"children\":[\"satisfies\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.invariant\"},\"tag\":\"reference\",\"children\":[\"invariant\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"input\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"FUNCTION\",\"children\":[{\"attributes\":{},\"tag\":\"FUNCTION\",\"children\":[\"function\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.check_throw\"},\"tag\":\"reference\",\"children\":[\"check_throw\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.invariant\"},\"tag\":\"reference\",\"children\":[\"invariant\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"input\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"BLOCK\",\"children\":[{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n    \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"EQ\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"res\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"EQ\",\"children\":[\"=\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.satisfies\"},\"tag\":\"reference\",\"children\":[\"satisfies\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.invariant\"},\"tag\":\"reference\",\"children\":[\"invariant\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"input\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n    \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LAZY_AND\",\"children\":[{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"isnothing\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"res\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LAZY_AND\",\"children\":[\"&&\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RETURN\",\"children\":[{\"attributes\":{},\"tag\":\"RETURN\",\"children\":[\"return\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NOTHING\",\"children\":[\"\"],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n    \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"throw\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.InvariantException\"},\"tag\":\"reference\",\"children\":[\"InvariantException\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.invariant\"},\"tag\":\"reference\",\"children\":[\"invariant\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"res\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"END\",\"children\":[\"end\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"STRUCT\",\"children\":[{\"attributes\":{},\"tag\":\"FALSE\",\"children\":[\"\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"STRUCT\",\"children\":[\"struct\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CURLY\",\"children\":[{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.CheckResult\"},\"tag\":\"reference\",\"children\":[\"CheckResult\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LBRACE\",\"children\":[\"{\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"I\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"R\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RBRACE\",\"children\":[\"}\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"BLOCK\",\"children\":[{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n    \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DECLARATION\",\"children\":[{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.invariant\"},\"tag\":\"reference\",\"children\":[\"invariant\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DECLARATION\",\"children\":[\"::\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"I\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n    \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DECLARATION\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"result\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DECLARATION\",\"children\":[\"::\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"R\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"END\",\"children\":[\"end\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"EQ\",\"children\":[{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{},\"tag\":\"DOT\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"Base\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DOT\",\"children\":[\".\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"QUOTE\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"convert\"],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DECLARATION\",\"children\":[{\"attributes\":{},\"tag\":\"DECLARATION\",\"children\":[\"::\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CURLY\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"Type\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LBRACE\",\"children\":[\"{\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"Bool\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RBRACE\",\"children\":[\"}\"],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DECLARATION\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"checkres\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DECLARATION\",\"children\":[\"::\"],\"type\":\"node\"},{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.CheckResult\"},\"tag\":\"reference\",\"children\":[\"CheckResult\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"EQ\",\"children\":[\"=\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"isnothing\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DOT\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"checkres\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DOT\",\"children\":[\".\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"QUOTE\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"result\"],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"FUNCTION\",\"children\":[{\"attributes\":{},\"tag\":\"FUNCTION\",\"children\":[\"function\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHERE\",\"children\":[{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{},\"tag\":\"DOT\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"Base\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DOT\",\"children\":[\".\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"QUOTE\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"show\"],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DECLARATION\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"io\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DECLARATION\",\"children\":[\"::\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"IO\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DECLARATION\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"checkres\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DECLARATION\",\"children\":[\"::\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CURLY\",\"children\":[{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.CheckResult\"},\"tag\":\"reference\",\"children\":[\"CheckResult\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LBRACE\",\"children\":[\"{\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"ISSUBTYPE\",\"children\":[{\"attributes\":{},\"tag\":\"ISSUBTYPE\",\"children\":[\"\u003C:\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"I\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"Nothing\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RBRACE\",\"children\":[\"}\"],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHERE\",\"children\":[\"where\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"I\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"BLOCK\",\"children\":[{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n    \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"print\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"io\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DQUOTE\",\"children\":[\"\\\"\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"STRING\",\"children\":[\"\\\\e[32m✔ Invariant satisfied:\\\\e[0m \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DQUOTE\",\"children\":[\"\\\"\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n    \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.showtitle\"},\"tag\":\"reference\",\"children\":[\"showtitle\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"io\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DOT\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"checkres\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DOT\",\"children\":[\".\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"QUOTE\",\"children\":[{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.invariant\"},\"tag\":\"reference\",\"children\":[\"invariant\"],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"END\",\"children\":[\"end\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"FUNCTION\",\"children\":[{\"attributes\":{},\"tag\":\"FUNCTION\",\"children\":[\"function\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{},\"tag\":\"DOT\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"Base\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DOT\",\"children\":[\".\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"QUOTE\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"show\"],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DECLARATION\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"io\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DECLARATION\",\"children\":[\"::\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"IO\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DECLARATION\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"checkres\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DECLARATION\",\"children\":[\"::\"],\"type\":\"node\"},{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.CheckResult\"},\"tag\":\"reference\",\"children\":[\"CheckResult\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"BLOCK\",\"children\":[{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n    \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"print\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"io\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DQUOTE\",\"children\":[\"\\\"\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"STRING\",\"children\":[\"\\\\e[1m\\\\e[31m⨯ Invariant not satisfied:\\\\e[0m\\\\e[1m \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DQUOTE\",\"children\":[\"\\\"\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n    \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.showtitle\"},\"tag\":\"reference\",\"children\":[\"showtitle\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"io\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DOT\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"checkres\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DOT\",\"children\":[\".\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"QUOTE\",\"children\":[{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.invariant\"},\"tag\":\"reference\",\"children\":[\"invariant\"],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"SEMICOLON\",\"children\":[\";\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"print\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"io\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DQUOTE\",\"children\":[\"\\\"\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"STRING\",\"children\":[\"\\\\e[22m\\\\n\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DQUOTE\",\"children\":[\"\\\"\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n    \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"CALL\",\"children\":[{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.errormessage\"},\"tag\":\"reference\",\"children\":[\"errormessage\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"LPAREN\",\"children\":[\"(\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"io\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DOT\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"checkres\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DOT\",\"children\":[\".\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"QUOTE\",\"children\":[{\"attributes\":{\"reftype\":\"symbol\",\"document_id\":\"references/Invariants.invariant\"},\"tag\":\"reference\",\"children\":[\"invariant\"],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"COMMA\",\"children\":[\",\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"WHITESPACE\",\"children\":[\" \"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DOT\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"checkres\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"DOT\",\"children\":[\".\"],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"QUOTE\",\"children\":[{\"attributes\":{},\"tag\":\"IDENTIFIER\",\"children\":[\"result\"],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"RPAREN\",\"children\":[\")\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"NEWLINE_WS\",\"children\":[\"\\n\"],\"type\":\"node\"}],\"type\":\"node\"},{\"attributes\":{},\"tag\":\"END\",\"children\":[\"end\"],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"}],\"type\":\"node\"}"}</script></div>
+</body>
+
+</html>
