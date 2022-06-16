@@ -17,25 +17,51 @@ struct AllInvariant{I<:AbstractInvariant} <: InvariantList
     invariants::Vector{I}
     title::String
     description::Union{Nothing, String}
+    shortcircuit::Bool
 end
 
 AllInvariant(
     invariants, title::String;
     description = nothing,
+    shortcircuit = true,
     kwargs...
-) = invariant(AllInvariant(invariants, title, description); kwargs...)
+) = invariant(AllInvariant(invariants, title, description, shortcircuit); kwargs...)
 
+# TODO: check for errors thrown and check invariants individually
+# TODO: remove SequenceInvariant and add `shortcircuit` kwarg to `AllInvariant`
 
 function satisfies(invs::AllInvariant, input)
-    results = [satisfies(inv, input) for inv in invs.invariants]
+    results = []
+    keepchecking = true
+    for inv in invs.invariants
+        if !keepchecking
+            push!(results, missing)
+            continue
+        else
+            res = try
+                satisfies(inv, input)
+            catch e
+                "Unexpected error while checking invariant: $e"
+            end
+            push!(results, res)
+            if !isnothing(res) && invs.shortcircuit
+                keepchecking = false
+            end
+        end
+
+    end
     return all(isnothing, results) ? nothing : results
 end
 
 
 function errormessage(io::IO, invs::AllInvariant, msgs)
-    __combinator_errormessage(io, invs, msgs, map(m -> isnothing(m) ? PASS : FAIL, msgs),
+    __combinator_errormessage(io, invs, msgs, map(__getmarker, msgs),
         faint("All invariants listed below should be satisfied:\n\n "))
 end
+
+__getmarker(::Nothing) = PASS
+__getmarker(::Missing) = UNKNOWN
+__getmarker(_) = FAIL
 
 
 # ## AnyInvariant
@@ -71,15 +97,8 @@ const FAIL = "\e[31m⨯\e[0m"
 const UNKNOWN = "\e[33m?\e[0m"
 
 function __combinator_errormessage(io::IO, invs, msgs, markers, msg)
-    n = length(msgs)
-    nfailed = count(!isnothing, msgs)
-
-    #showtitle(io, invs); println(io)
     showdescription(io, invs)
-
     print(io, msg)
-    #println(io, md("`$nfailed / $n` invariants were not satisfied.", io), "\n")
-
     for (inv, message, marker) in zip(invs.invariants, msgs, markers)
         __errormessage_child(io, inv; marker, message)
     end
@@ -90,20 +109,16 @@ function __errormessage_child(
         inv;
         marker = "o",
         message=nothing,
-        #indent = "  |  ",
         indent = "    "
         )
     print(io, marker, " ")
-    #@show io
     showtitle(io, inv)
     print(io, "\e[0m")
     println(io)
 
-    if !isnothing(message)
+    if !(isnothing(message) || ismissing(message))
         ioi = WrapIO(io; indent)
-        #println(ioi)
         errormessage(ioi, inv, message)
-        #println(io)
     end
 end
 

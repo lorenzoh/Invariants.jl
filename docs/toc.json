@@ -1,5 +1,6 @@
 {
     "README": "documents/README.md",
-    "User guide": "documents/docs/guide.md",
+    "Tutorial": "documents/docs/guide.md",
+    "Examples": "documents/docs/examples.md",
     "Reference": "references/Invariants"
 }

@@ -95,8 +95,8 @@ given keyword arguments.
 Combine multiple invariants `invs` logically. The type of composition dependsBy default, all invariants must be
 on the third argument:
 
-- `:all` (default): All invariants must be satisfied (see [`AllInvariant`](#))
-- `:any`: At least one invariant must be satisfied (see [`AnyInvariant`](#))
+- `all` (default): All invariants must be satisfied (see [`AllInvariant`](#))
+- `any`: At least one invariant must be satisfied (see [`AnyInvariant`](#))
 satisfied. `
 
 ## Examples
@@ -143,11 +143,13 @@ check_throw(inv, 1)
 invariant(fn, title::String; kwargs...) = Invariant(fn, title; kwargs...)
 
 
-invariant(invariants::AbstractVector, title::String, combine = :all; kwargs...) = _invariants(invariants, title, Val(combine); kwargs...)
 
-
-_invariants(invariants, title, ::Val{:all}; kwargs...) = AllInvariant(invariants, title; kwargs...)
-_invariants(invariants, title, ::Val{:any}; kwargs...) = AnyInvariant(invariants, title; kwargs...)
+invariant(title, invariants::AbstractVector{<:AbstractInvariant}; kwargs...) =
+    invariant(title, invariants, all; kwargs...)
+invariant(title, invariants::AbstractVector{<:AbstractInvariant},
+            ::typeof(all); kwargs...) = AllInvariant(invariants, title; kwargs...)
+invariant(title, invariants::AbstractVector{<:AbstractInvariant},
+            ::typeof(any); kwargs...) = AnyInvariant(invariants, title; kwargs...)
 
 
 title(inv::Invariant) = inv.title
