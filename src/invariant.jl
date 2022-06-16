@@ -59,8 +59,12 @@ function errormessage(io::IO, inv::AbstractInvariant, msg)
     println(io)
     showdescription(io, inv)
     println(io, msg)
-    #println(io, richmdstr("_Error_: $(msg)", io))
 end
+
+Base.show(io::IO, inv::AbstractInvariant) = AbstractTrees.print_tree(io, inv)
+AbstractTrees.printnode(io::IO, inv::AbstractInvariant) = print(io, nameof(typeof(inv)), "(\"", md(title(inv)), "\")")
+AbstractTrees.children(::AbstractInvariant) = ()
+
 
 # ## Basic invariant
 
@@ -72,7 +76,6 @@ Base.@kwdef struct Invariant <: AbstractInvariant
     inputfn = identity
 end
 
-Base.show(io::IO, inv::Invariant) = print(io, "Invariant(\"", title(inv), "\")")
 
 Invariant(fn, title::String; description = nothing, validate = _ -> true, inputfn = identity) =
     Invariant(; fn, title, description, validate, inputfn)

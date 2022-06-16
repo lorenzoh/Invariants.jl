@@ -3,7 +3,8 @@ module Invariants
 using InlineTest
 using ANSIColoredPrinters: PlainTextPrinter
 using Markdown
-using TextWrap
+using TextWrap: wrap
+import AbstractTrees
 
 include("invariant.jl")
 include("combinators.jl")

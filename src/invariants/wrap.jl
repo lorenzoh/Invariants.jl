@@ -18,6 +18,8 @@ function invariant(
     return WrapInvariant(inv, title, description, inputfn, validate)
 end
 
+AbstractTrees.children(inv::WrapInvariant) = (inv.inv,)
+
 
 function invariant(
         inv::Invariant;
@@ -33,11 +35,6 @@ function invariant(
 end
 
 
-function Base.show(io::IO, inv::WrapInvariant)
-    print(io, "WrapInvariant(")
-    show(io, inv.inv)
-    print(io, ")")
-end
 
 
 title(wrap::WrapInvariant) = isnothing(wrap.title) ? title(wrap.inv) : wrap.title
