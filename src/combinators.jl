@@ -11,6 +11,8 @@ title(invs::InvariantList) = invs.title
 description(invs::InvariantList) = invs.description
 validate(invs::InvariantList, input) = all(map(inv -> validate(inv, input), invs.invariants))
 
+AbstractTrees.children(invs::InvariantList) = invs.invariants
+
 # ## AllInvariant
 
 struct AllInvariant{I<:AbstractInvariant} <: InvariantList
@@ -80,8 +82,16 @@ AnyInvariant(
 
 
 function satisfies(invs::AnyInvariant, input)
-    results = [satisfies(inv, input) for inv in invs.invariants]
-    return any(isnothing, results) ? nothing : results
+    results = []
+
+    for inv in invs.invariants
+        res = satisfies(inv, input)
+        push!(results, res)
+        if isnothing(res)
+            return nothing
+        end
+    end
+    return results
 end
 
 
