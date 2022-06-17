@@ -25,8 +25,6 @@ An `Invariant` `I` must implement the following methods:
 - [`satisfies`](#)`(::I, input) -> (nothing | msg)`: Check whether an `input`
     satisfies the invariant, returning either `nothing` on success
     or an error message.
-- [`validate`](#)`(::I, input)::Bool`: Check whether an `input`
-    is valid for the invariant.
 """
 abstract type AbstractInvariant end
 
@@ -46,7 +44,6 @@ account the context `ctx`.
 """
 description(::AbstractInvariant) = nothing
 function satisfies end
-function validate end
 
 function errormessage(inv::AbstractInvariant, msg)
     buf = IOBuffer()
@@ -72,23 +69,22 @@ Base.@kwdef struct Invariant <: AbstractInvariant
     fn
     title::String
     description::Union{Nothing, String} = nothing
-    validate = _ -> true
     inputfn = identity
 end
 
 
-Invariant(fn, title::String; description = nothing, validate = _ -> true, inputfn = identity) =
-    Invariant(; fn, title, description, validate, inputfn)
+Invariant(fn, title::String; description = nothing, inputfn = identity) =
+    Invariant(; fn, title, description, inputfn)
 
 
 """
-    invariant(fn, title; description, validate, inputfn)
+    invariant(fn, title; description, inputfn)
 
 Create an invariant with name `title` that checks an input against
 `fn` which returns either `nothing` when the invariant is satisfied,
 or an error message when the invariant is violated.
 
-    invariant(inv; title, description, validate, inputfn)
+    invariant(inv; title, description, inputfn)
 
 Wrap an invariant `inv`, replacing some of its attributes with the
 given keyword arguments.
@@ -133,7 +129,7 @@ Or just get a Bool:
 
 {cell}
 ```julia
-check_bool(inv, -1), check_bool(inv, 1)
+check(Bool, inv, -1), check(Bool, inv, 1)
 ```
 
 Throw an error when an invariant is not satisfied:
@@ -157,10 +153,8 @@ invariant(title, invariants::AbstractVector{<:AbstractInvariant},
 
 title(inv::Invariant) = inv.title
 description(inv::Invariant) = inv.description
-validate(inv::Invariant, input) = inv.validate(inv.inputfn(input))
 satisfies(inv::Invariant, input) = inv.fn(inv.inputfn(input))
 
-##
 
 function showdescription(io, inv)
     if !isnothing(description(inv))
@@ -176,18 +170,17 @@ end
 function testinvariant(inv, input)
     @test_nowarn title(inv)
     @test_nowarn description(inv)
-    @test_nowarn validate(inv, input)
     @test_nowarn satisfies(inv, input)
 end
 
 function exampleinvariant(symbol = :n)
     return Invariant("`$symbol` is positive",
-        description = "The number `$symbol` should be larger than `0`.") do x
+        description = "The number `$symbol` should be larger than `0`." |> md) do x
         if !(x isa Number)
-            return "`$symbol` has type $(typeof(x)), but it should be a `Number` type."
+            return "`$symbol` has type $(typeof(x)), but it should be a `Number` type." |> md
         else
             x > 0 && return nothing
-            return "`$symbol` is not a positive number, got value `$x`. Please pass a number larger than 0."
+            return "`$symbol` is not a positive number, got value `$x`. Please pass a number larger than 0." |> md
         end
     end
 end

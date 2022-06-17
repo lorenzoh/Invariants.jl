@@ -1,7 +1,12 @@
 
+md(s) = string(AsMarkdown(s))
+
 function hasmethod_invariant(fn, args...; title = _title_hasmethod(fn, args), kwargs...)
 
-    return invariant(title; validate=_validate_hasmethod(args), kwargs...) do inputs
+    return invariant(title; kwargs...) do inputs
+        if !(_validate_hasmethod(args)(inputs))
+            return "Got invalid inputs $inputs"
+        end
         argnames = map(arg -> arg isa Symbol ? arg : arg[1], args)
         argvalues = map(arg -> arg isa Symbol ? inputs[arg] : arg[2], args)
         try
@@ -41,13 +46,15 @@ function _title_hasmethod(fn, args)
 end
 
 function _validate_hasmethod(args)
-    return inputs -> for arg in args
-        inputs isa NamedTuple || return false
-        if arg isa Symbol
-            haskey(inputs, arg) || return false
+    return function (inputs)
+        for arg in args
+            inputs isa NamedTuple || return false
+            if arg isa Symbol
+                haskey(inputs, arg) || return false
+            end
         end
+        return true
     end
-    true
 end
 
 function _signature(fn, argnames, argvalues)

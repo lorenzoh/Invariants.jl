@@ -9,7 +9,6 @@ abstract type InvariantList <: AbstractInvariant end
 
 title(invs::InvariantList) = invs.title
 description(invs::InvariantList) = invs.description
-validate(invs::InvariantList, input) = all(map(inv -> validate(inv, input), invs.invariants))
 
 AbstractTrees.children(invs::InvariantList) = invs.invariants
 

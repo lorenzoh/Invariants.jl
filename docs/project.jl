@@ -2,13 +2,13 @@ using Pollen
 using Pkg
 
 # The main package you are documenting
-using Invariants
+using Invariants, InvariantsCore
 m = Invariants
 
 
 # Packages that will be indexed in the documentation. Add additional modules
 # to the list.
-ms = [m]
+ms = [m, InvariantsCore]
 
 
 # Add rewriters here
