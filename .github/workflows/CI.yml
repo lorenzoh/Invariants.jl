@@ -10,7 +10,6 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - '1.0'
           - '1.6'
           - 'nightly'
         os:
@@ -35,6 +34,6 @@ jobs:
             ${{ runner.os }}-
       - name: "Install package and docs dependencies"
         run: |
-          julia --color=yes --project=. -e 'using Pkg; Pkg.add([Pkg.PackageSpec(path="."), Pkg.PackageSpec(url="https://github.com/lorenzoh/InvariantsCore.jl")]);'
+          julia --color=yes --project=. -e 'using Pkg; Pkg.add(Pkg.PackageSpec(url="https://github.com/lorenzoh/InvariantsCore.jl"));'
       - uses: julia-actions/julia-buildpkg@v1
       - uses: julia-actions/julia-runtest@v1
