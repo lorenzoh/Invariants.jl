@@ -15,7 +15,7 @@ function hasmethod_invariant(fn, args...; title = _title_hasmethod(fn, args), kw
             sig = _signature(fn, argnames, argvalues)
             if e isa MethodError && e.f == fn
                 return md("""When calling `$fn`, got a `MethodError`. This means that there
-                is no method implemented for the given arguments. To fix this, please
+              is no method implemented for the given arguments. To fix this, please
                 implement the following method:
                 """) * "\n\n    " * sig
             else
