@@ -3,5 +3,4 @@ import Test
 using ReTest
 
 Invariants.runtests()
-Test.@testset "Invariants.jl" begin
-end
+Test.@testset "Invariants.jl" begin end

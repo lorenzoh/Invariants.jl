@@ -1,6 +1,5 @@
 # Defines the abstract `Invariant` type and its interface
 
-
 """
     abstract type AbstractInvariant
 
@@ -51,7 +50,6 @@ function errormessage(inv::AbstractInvariant, msg)
     return String(take!(buf))
 end
 
-
 function errormessage(io::IO, inv::AbstractInvariant, msg)
     println(io)
     showdescription(io, inv)
@@ -59,23 +57,23 @@ function errormessage(io::IO, inv::AbstractInvariant, msg)
 end
 
 Base.show(io::IO, inv::AbstractInvariant) = AbstractTrees.print_tree(io, inv)
-AbstractTrees.printnode(io::IO, inv::AbstractInvariant) = print(io, nameof(typeof(inv)), "(\"", md(title(inv)), "\")")
+function AbstractTrees.printnode(io::IO, inv::AbstractInvariant)
+    print(io, nameof(typeof(inv)), "(\"", md(title(inv)), "\")")
+end
 AbstractTrees.children(::AbstractInvariant) = ()
-
 
 # ## Basic invariant
 
 Base.@kwdef struct Invariant <: AbstractInvariant
-    fn
+    fn::Any
     title::String
     description::Union{Nothing, String} = nothing
     inputfn = identity
 end
 
-
-Invariant(fn, title::String; description = nothing, inputfn = identity) =
+function Invariant(fn, title::String; description = nothing, inputfn = identity)
     Invariant(; fn, title, description, inputfn)
-
+end
 
 """
     invariant(fn, title; description, inputfn)
@@ -141,20 +139,21 @@ check_throw(inv, 1)
 """
 invariant(fn, title::String; kwargs...) = Invariant(fn, title; kwargs...)
 
-
-
-invariant(title, invariants::AbstractVector{<:AbstractInvariant}; kwargs...) =
+function invariant(title, invariants::AbstractVector{<:AbstractInvariant}; kwargs...)
     invariant(title, invariants, all; kwargs...)
-invariant(title, invariants::AbstractVector{<:AbstractInvariant},
-            ::typeof(all); kwargs...) = AllInvariant(invariants, title; kwargs...)
-invariant(title, invariants::AbstractVector{<:AbstractInvariant},
-            ::typeof(any); kwargs...) = AnyInvariant(invariants, title; kwargs...)
-
+end
+function invariant(title, invariants::AbstractVector{<:AbstractInvariant},
+                   ::typeof(all); kwargs...)
+    AllInvariant(invariants, title; kwargs...)
+end
+function invariant(title, invariants::AbstractVector{<:AbstractInvariant},
+                   ::typeof(any); kwargs...)
+    AnyInvariant(invariants, title; kwargs...)
+end
 
 title(inv::Invariant) = inv.title
 description(inv::Invariant) = inv.description
 satisfies(inv::Invariant, input) = inv.fn(inv.inputfn(input))
-
 
 function showdescription(io, inv)
     if !isnothing(description(inv))
@@ -166,7 +165,6 @@ function showtitle(io, inv)
     print(io, md(title(inv), io))
 end
 
-
 function testinvariant(inv, input)
     @test_nowarn title(inv)
     @test_nowarn description(inv)
@@ -175,16 +173,17 @@ end
 
 function exampleinvariant(symbol = :n)
     return Invariant("`$symbol` is positive",
-        description = "The number `$symbol` should be larger than `0`." |> md) do x
+                     description = "The number `$symbol` should be larger than `0`." |> md) do x
         if !(x isa Number)
-            return "`$symbol` has type $(typeof(x)), but it should be a `Number` type." |> md
+            return "`$symbol` has type $(typeof(x)), but it should be a `Number` type." |>
+                   md
         else
             x > 0 && return nothing
-            return "`$symbol` is not a positive number, got value `$x`. Please pass a number larger than 0." |> md
+            return "`$symbol` is not a positive number, got value `$x`. Please pass a number larger than 0." |>
+                   md
         end
     end
 end
-
 
 @testset "Invariant" begin
     inv = exampleinvariant()

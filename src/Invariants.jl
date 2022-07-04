@@ -16,7 +16,7 @@ include("invariants/hasmethod.jl")
 
 function exampleinvariant(symbol = :n)
     return Invariant("`$symbol` is positive",
-        description = "The number `$symbol` should be larger than `0`.") do x
+                     description = "The number `$symbol` should be larger than `0`.") do x
         if !(x isa Number)
             return "`$symbol` has type $(typeof(x)), but it should be a `Number` type."
         else
@@ -25,8 +25,6 @@ function exampleinvariant(symbol = :n)
         end
     end
 end
-
-
 
 export invariant, check, check_throw
 

@@ -4,7 +4,6 @@
 # - `SequenceInvariant` runs multiple invariants in an order and fails
 #    early if one fails
 
-
 abstract type InvariantList <: AbstractInvariant end
 
 title(invs::InvariantList) = invs.title
@@ -14,19 +13,19 @@ AbstractTrees.children(invs::InvariantList) = invs.invariants
 
 # ## AllInvariant
 
-struct AllInvariant{I<:AbstractInvariant} <: InvariantList
+struct AllInvariant{I <: AbstractInvariant} <: InvariantList
     invariants::Vector{I}
     title::String
     description::Union{Nothing, String}
     shortcircuit::Bool
 end
 
-AllInvariant(
-    invariants, title::String;
-    description = nothing,
-    shortcircuit = true,
-    kwargs...
-) = invariant(AllInvariant(invariants, title, description, shortcircuit); kwargs...)
+function AllInvariant(invariants, title::String;
+                      description = nothing,
+                      shortcircuit = true,
+                      kwargs...)
+    invariant(AllInvariant(invariants, title, description, shortcircuit); kwargs...)
+end
 
 # TODO: check for errors thrown and check invariants individually
 # TODO: remove SequenceInvariant and add `shortcircuit` kwarg to `AllInvariant`
@@ -49,36 +48,32 @@ function satisfies(invs::AllInvariant, input)
                 keepchecking = false
             end
         end
-
     end
     return all(isnothing, results) ? nothing : results
 end
 
-
 function errormessage(io::IO, invs::AllInvariant, msgs)
     __combinator_errormessage(io, invs, msgs, map(__getmarker, msgs),
-        faint("All invariants listed below should be satisfied:\n\n "))
+                              faint("All invariants listed below should be satisfied:\n\n "))
 end
 
 __getmarker(::Nothing) = PASS
 __getmarker(::Missing) = UNKNOWN
 __getmarker(_) = FAIL
 
-
 # ## AnyInvariant
 
-struct AnyInvariant{I<:AbstractInvariant} <: InvariantList
+struct AnyInvariant{I <: AbstractInvariant} <: InvariantList
     invariants::Vector{I}
     title::String
     description::Union{Nothing, String}
 end
 
-AnyInvariant(
-    invariants, title::String;
-    description = nothing,
-    kwargs...
-) = invariant(AnyInvariant(invariants, title, description); kwargs...)
-
+function AnyInvariant(invariants, title::String;
+                      description = nothing,
+                      kwargs...)
+    invariant(AnyInvariant(invariants, title, description); kwargs...)
+end
 
 function satisfies(invs::AnyInvariant, input)
     results = []
@@ -93,10 +88,9 @@ function satisfies(invs::AnyInvariant, input)
     return results
 end
 
-
 function errormessage(io::IO, invs::AnyInvariant, msgs)
     __combinator_errormessage(io, invs, msgs, map(m -> isnothing(m) ? PASS : FAIL, msgs),
-        faint("At least one of the invariants listed below should be satisfied:\n\n"))
+                              faint("At least one of the invariants listed below should be satisfied:\n\n"))
 end
 
 # ## Helpers for printing children
@@ -113,13 +107,11 @@ function __combinator_errormessage(io::IO, invs, msgs, markers, msg)
     end
 end
 
-function __errormessage_child(
-        io,
-        inv;
-        marker = "o",
-        message=nothing,
-        indent = "    "
-        )
+function __errormessage_child(io,
+                              inv;
+                              marker = "o",
+                              message = nothing,
+                              indent = "    ")
     print(io, marker, " ")
     showtitle(io, inv)
     print(io, "\e[0m")
