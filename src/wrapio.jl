@@ -6,11 +6,13 @@ mutable struct WrapIO{I <: IO} <: IO
     indentfirst::Bool
 end
 
-function WrapIO(io; width = displaysize(io)[2], indent = "", indentfirst = true)
+function WrapIO(io; width = displaysize(io)[2], indent = "", indentfirst = true, maxwidth = nothing)
+    width = isnothing(maxwidth) ? width : min(maxwidth, width)
     WrapIO(io, width, indent, indentfirst)
 end
 
-function WrapIO(io::WrapIO; width = displaysize(io)[2], indent = "", indentfirst = true)
+function WrapIO(io::WrapIO; width = displaysize(io)[2], indent = "", indentfirst = true, maxwidth = nothing)
+    width = isnothing(maxwidth) ? width : min(maxwidth, width)
     WrapIO(io.io, min(width, io.width), io.indent * indent, indentfirst)
 end
 
