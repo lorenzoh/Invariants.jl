@@ -28,16 +28,7 @@ function satisfies(invs::AllInvariant, input)
             push!(results, missing)
             continue
         else
-            res = try
-                satisfies(inv, input)
-            catch e
-                """Unexpected error while checking invariant:
-
-                ```
-                $(sprint(Base.showerror, e))
-                ```
-                """
-            end
+            res = catch_satisfies(inv, input)
             push!(results, res)
             if !isnothing(res) && invs.shortcircuit
                 keepchecking = false
@@ -66,11 +57,21 @@ function satisfies(invs::AnyInvariant, input)
     results = []
 
     for inv in invs.invariants
-        res = satisfies(inv, input)
+        res = catch_satisfies(inv, input)
         push!(results, res)
         if isnothing(res)
             return nothing
         end
     end
     return results
+end
+
+
+function catch_satisfies(inv::AbstractInvariant, input)
+    try
+        return satisfies(inv, input)
+    catch e
+        errormsg = sprint(Base.showerror, e, context = :color => true)
+        return md("An uncaught error was thrown while checking this invariant:") * "\n\n" * errormsg
+    end
 end

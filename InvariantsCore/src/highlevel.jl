@@ -131,7 +131,7 @@ Check an invariant against an input, returning `true` if satisfied, `false`
 if violated.
 """
 function check(invariant, input)
-    res = satisfies(invariant, input)
+    res = catch_satisfies(invariant, input)
     return CheckResult(invariant, res)
 end
 
