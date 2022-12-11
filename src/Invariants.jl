@@ -13,6 +13,7 @@ include("tree.jl")
 include("show.jl")
 
 include("invariants/hasmethod.jl")
+include("invariants/hastype.jl")
 
 function exampleinvariant(symbol = :n)
     return Invariant("`$symbol` is positive",
