@@ -39,5 +39,8 @@ jobs:
       - uses: julia-actions/julia-runtest@v1
         with:
           project: './InvariantsCore/'
+      - name: Dev test dependencies
+        run: |
+          julia --color=yes --project=./test -e 'using Pkg; pkg"dev . ./InvariantsCore"'
       - uses: julia-actions/julia-buildpkg@v1
       - uses: julia-actions/julia-runtest@v1
