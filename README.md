@@ -1,5 +1,7 @@
 # Invariants
 
+[Documentation](https://lorenzoh.github.io/Invariants.jl)
+
 A Julia package for writing invariants for
 
 - providing helpful, detailed error messages to package users when they misuse the API

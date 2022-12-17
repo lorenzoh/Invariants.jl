@@ -2,7 +2,6 @@
 md(s) = string(AsMarkdown(s))
 
 function hasmethod_invariant(fn, args...; title = _title_hasmethod(fn, args), kwargs...)
-
     return invariant(title; kwargs...) do inputs
         if !(_validate_hasmethod(args)(inputs))
             return "Got invalid inputs $inputs"
@@ -16,21 +15,25 @@ function hasmethod_invariant(fn, args...; title = _title_hasmethod(fn, args), kw
             sig = _signature(fn, argnames, argvalues)
             if e isa MethodError && e.f == fn
                 return md("""When calling `$fn`, got a `MethodError`. This means that there
-                is no method implemented for the given arguments. To fix this, please
+              is no method implemented for the given arguments. To fix this, please
                 implement the following method:
                 """) * "\n\n    " * sig
             else
                 return (md("When calling `$fn`, got an unexpected error:") * "\n\n" *
-                    (sprint(Base.showerror, e; context = (:color => false,)) |> indent |> faint) *
-                    "\n\n" * md("""This means that there is a method matching the given arguments,
-                    but calling it throws an error. To fix this, please debug the following
-                    method:""") * "\n\n    " * sig)
+                        (sprint(Base.showerror, e; context = (:color => false,)) |>
+                         indent |> faint) *
+                        "\n\n" *
+                        md("""This means that there is a method matching the given arguments,
+               but calling it throws an error. To fix this, please debug the following
+               method:""") * "\n\n    " * sig)
             end
         end
     end
 end
 
-indent(s, n = 4) = wrap(s; initial_indent=repeat(" ", n), subsequent_indent=repeat(" ", n))
+function indent(s, n = 4)
+    wrap(s; initial_indent = repeat(" ", n), subsequent_indent = repeat(" ", n))
+end
 faint(s) = "\e[2m$s\e[22m"
 
 function _title_hasmethod(fn, args)
