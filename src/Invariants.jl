@@ -16,13 +16,14 @@ include("invariants/hasmethod.jl")
 include("invariants/hastype.jl")
 
 function exampleinvariant(symbol = :n)
-    return Invariant("`$symbol` is positive",
-                     description = "The number `$symbol` should be larger than `0`.") do x
+    return invariant("`$symbol` is positive",
+        description = "The number `$symbol` should be larger than `0`.") do x
+
         if !(x isa Number)
-            return "`$symbol` has type $(typeof(x)), but it should be a `Number` type."
+            return "`$symbol` has type $(typeof(x)), but it should be a `Number` type." |> md
         else
             x > 0 && return nothing
-            return "`$symbol` is not a positive number, got value `$x`. Please pass a number larger than 0."
+            return "`$symbol` is not a positive number, got value `$x`. Please pass a number larger than 0." |> md
         end
     end
 end
