@@ -42,3 +42,6 @@ jobs:
       - name: Dev test dependencies
         run: |
           julia --color=yes --project=./test -e 'using Pkg; pkg"dev . ./InvariantsCore"; pkg"test Invariants"'
+      - name: Run Invariants tests
+        run: |
+          julia --color=yes --project=./test -e 'include("test/runtests.jl")'
