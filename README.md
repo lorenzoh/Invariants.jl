@@ -1,6 +1,6 @@
 # Invariants
 
-[Documentation](https://lorenzoh.github.io/Invariants.jl)
+[Documentation](https://lorenzoh.github.io/Invariants.jl/dev/documents/README.md)
 
 A Julia package for writing invariants for
 
