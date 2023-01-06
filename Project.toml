@@ -10,6 +10,10 @@ InvariantsCore = "69cbffe8-09de-43b1-81db-93034495284f"
 TextWrap = "b718987f-49a8-5099-9789-dcd902bef87d"
 
 [compat]
+AbstractTrees = "0.4"
+InlineTest = "0.2"
+InvariantsCore = "0.1"
+TextWrap = "1"
 julia = "1"
 
 [pollen]
